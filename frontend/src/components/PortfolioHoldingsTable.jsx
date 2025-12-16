@@ -13,7 +13,7 @@ const PortfolioHoldingsTable = ({ assets = [] }) => {
 
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-xs font-semibold text-gray-400 uppercase py-3 bg-slate-100 rounded-lg px-4">
+          <tr className="text-left text-xs font-semibold text-gray-400 uppercase py-3 bg-slate-100 rounded-lg">
             <th className="p-4">Asset</th>
             <th>Quantity</th>
             <th>Avg Buy</th>
