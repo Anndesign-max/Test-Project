@@ -3,6 +3,10 @@
 
 import { useEffect, useState } from 'react'
 import { getStocks, getCrypto } from '../services/api'
+import {
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
+} from '@heroicons/react/24/solid'
 
 const Assets = () => {
   const [assets, setAssets] = useState([])
@@ -60,19 +64,35 @@ const Assets = () => {
 
       <div className="bg-white p-4 rounded shadow">
         {filtered.map(a => (
-          <div
-            key={a.symbol}
-            className="flex justify-between text-sm mb-2"
-          >
-            <span>{a.symbol}</span>
-            <span
-              className={
-                a.changePercent >= 0 ? 'text-green-600' : 'text-red-600'
-              }
-            >
-              {a.changePercent}%
-            </span>
-          </div>
+          <div key={a.symbol} className="grid grid-cols-5 justify-between items-center text-sm py-2 border-b border-gray-100">
+                  <span className='col-span-1 font-bold bg-pulse-light/50 text-pulse-primary p-2 rounded-lg w-fit'>{a.symbol}</span>
+                  <div className='col-span-2 flex flex-col gap-2 justify-start'>
+                      <p className='text-black font-bold'>{a.name}</p>
+                      <p className='text-black/50'>{a.sector ? a.sector : 'Crypto'}</p>
+                  </div>
+                  <div className='col-span-1 flex flex-col gap-2 justify-start'>
+                    <p className='text-black/50'>Current Price</p>
+                      <p className='text-black font-bold'>${a.currentPrice}</p>
+                      
+                  </div>
+                  <div className='col-span-1 flex flex-row justify-end '>
+                    <span
+                      className={`w-fit flex flex-row gap-1 p-2 rounded-lg font-semibold ${
+                        a.changePercent >= 0 ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'
+                      }`}
+                    > 
+                    {a.changePercent}%
+                      {a.changePercent >= 0 ? (
+                        <ArrowTrendingUpIcon className="w-4 h-4" />
+                      ) : (
+                        <ArrowTrendingDownIcon className="w-4 h-4" />
+                      )}
+                    
+                    </span>
+                  </div>
+                 
+                </div>
+          
         ))}
       </div>
     </div>
