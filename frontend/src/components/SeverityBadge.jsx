@@ -10,15 +10,15 @@ const SEVERITY_CONFIG = {
     icon: ExclamationTriangleIcon,
   },
   high: {
-    className: 'text-yellow-700 bg-yellow-100',
+    className: 'text-yellow-700 bg-yellow-50',
     icon: ExclamationCircleIcon,
   },
   medium: {
-    className: 'text-orange-700 bg-orange-100',
+    className: 'text-orange-700 bg-orange-50',
     icon: ArrowTrendingDownIcon,
   },
   low: {
-    className: 'text-green-700 bg-green-100',
+    className: 'text-green-700 bg-green-50',
     icon: ArrowTrendingDownIcon,
   },
 }
@@ -29,7 +29,7 @@ const SeverityBadge = ({ severity = 'low' }) => {
 
   return (
     <span
-      className={`flex items-center gap-1 px-2 py-1 rounded-lg font-semibold ${config.className}`}
+      className={`w-fit flex items-center gap-1 px-2 py-1 rounded-lg font-semibold text-sm ${config.className}`}
     >
       <Icon className="w-4 h-4" />
       {severity}

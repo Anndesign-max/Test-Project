@@ -14,15 +14,32 @@ const Assets = () => {
   useEffect(() => {
     const fetchAssets = async () => {
       try {
-        const [stocksRes, cryptoRes] = await Promise.all([
-          getStocks(),
-          getCrypto(),
-        ])
+        const stocksRes = await getStocks()
+        const cryptoRes = await getCrypto()
 
-        const stocks = stocksRes.data || []
-        const crypto = cryptoRes.data || []
+        console.log('📈 STOCKS RESPONSE:', stocksRes.data)
+        console.log('🪙 CRYPTO RESPONSE:', cryptoRes.data)
 
-        setAssets([...stocks, ...crypto])
+        const stocks = Array.isArray(stocksRes.data)
+          ? stocksRes.data.map(a => ({
+              ...a,
+              type: 'stock',
+            }))
+          : []
+
+        const crypto = Array.isArray(cryptoRes.data)
+          ? cryptoRes.data.map(a => ({
+              ...a,
+              type: 'crypto',
+              sector: a.sector || 'Crypto',
+            }))
+          : []
+
+        const mergedAssets = [...stocks, ...crypto]
+
+        console.log('🧾 MERGED ASSETS:', mergedAssets)
+
+        setAssets(mergedAssets)
       } catch (err) {
         console.error('Assets error:', err)
       } finally {
@@ -33,29 +50,28 @@ const Assets = () => {
     fetchAssets()
   }, [])
 
+  if (loading) return <p>Loading assets...</p>
+
+  // ✅ THIS WAS MISSING / MISNAMED
   const filteredAssets =
     filter === 'all'
       ? assets
-      : assets.filter((a) =>
-          filter === 'stocks' ? a.sector : !a.sector
-        )
-
-  if (loading) return <p>Loading assets...</p>
+      : assets.filter(a => a.type === filter)
 
   return (
     <div>
       <PageHeader title="Assets" />
 
-      {/* Filter */}
+      {/* FILTER BUTTONS */}
       <div className="flex gap-2 mb-6">
-        {['all', 'stocks', 'crypto'].map((f) => (
+        {['all', 'stock', 'crypto'].map(f => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-lg border ${
+            className={`px-4 py-2 rounded-lg border transition ${
               filter === f
                 ? 'bg-pulse-primary text-white'
-                : 'bg-white'
+                : 'bg-white hover:bg-gray-50'
             }`}
           >
             {f.toUpperCase()}
@@ -63,6 +79,7 @@ const Assets = () => {
         ))}
       </div>
 
+      {/* ✅ NOW DEFINED */}
       <AssetList title="All Assets" items={filteredAssets} />
     </div>
   )

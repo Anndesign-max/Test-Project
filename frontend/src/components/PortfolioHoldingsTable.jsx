@@ -2,20 +2,19 @@ import {
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
 } from '@heroicons/react/24/solid'
+import Badge from './Badge'
+import Card from './Card'
 
 const PortfolioHoldingsTable = ({ assets = [] }) => {
   if (!assets.length) return null
 
   return (
-    <div className="bg-white p-6 rounded-lg border border-pulse-light">
-      <h2 className="text-lg font-semibold mb-4 uppercase text-gray-400">
-        Holdings
-      </h2>
+    <Card title=" Your Assets">
 
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-gray-500 border-b">
-            <th className="py-2">Asset</th>
+          <tr className="text-left text-xs font-semibold text-gray-400 uppercase py-3 bg-slate-100 rounded-lg px-4">
+            <th className="p-4">Asset</th>
             <th>Quantity</th>
             <th>Avg Buy</th>
             <th>Current</th>
@@ -33,8 +32,10 @@ const PortfolioHoldingsTable = ({ assets = [] }) => {
                 key={asset.assetId}
                 className="border-b last:border-0 hover:bg-pulse-light/30"
               >
-                <td className="py-3 font-bold text-pulse-primary">
-                  {asset.assetId}
+                <td className="p-4 font-bold text-pulse-primary">
+                    <Badge className="bg-pulse-light/50 text-pulse-primary w-fit">
+                     {asset.assetId}
+                    </Badge>
                 </td>
 
                 <td>{asset.quantity}</td>
@@ -65,7 +66,7 @@ const PortfolioHoldingsTable = ({ assets = [] }) => {
           })}
         </tbody>
       </table>
-    </div>
+    </Card>
   )
 }
 

@@ -1,19 +1,17 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
+import { formatDate } from '../utils/formatDate'
+import Card from './Card'
 
 const NewsFeed = ({ news = [] }) => (
-  <div className="bg-white p-6 rounded-lg border border-pulse-light">
-    <h3 className="font-semibold uppercase pb-6 text-gray-400 border-b border-gray-100">
-      Recent News
-    </h3>
-
+   <Card title="Recent News">
     {news.slice(0, 5).map((n) => (
-      <div key={n.id} className="group text-sm">
+      <div key={n.id} className="group ">
         <div className="p-2 flex justify-between items-center border-b border-gray-100 hover:bg-pulse-light/30 rounded-lg cursor-pointer">
-          <div>
-            <p className="font-bold group-hover:text-pulse-primary">
+          <div>         
+            <p className="text-gray-500 text-sm">{n.source} | Published {formatDate(n.timestamp)} </p>
+            <h6 className="font-bold text-lg group-hover:text-pulse-primary mb-2">
               {n.title}
-            </p>
-            <p className="text-gray-500 mb-2">{n.source}</p>
+            </h6>
 
             <div className="flex gap-2">
               {n.tags.map((tag) => (
@@ -31,7 +29,7 @@ const NewsFeed = ({ news = [] }) => (
         </div>
       </div>
     ))}
-  </div>
+  </Card>
 )
 
 export default NewsFeed

@@ -55,15 +55,15 @@ const Dashboard = () => {
       <PortfolioSummary portfolio={portfolio} />
 
       {/* ================= GAINERS / LOSERS ================= */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-        <AssetList title="Top Gainers" items={gainers} />
-        <AssetList title="Top Losers" items={losers} />
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+        <AssetList title="Top Gainers" items={gainers} limit={3} />
+        <AssetList title="Top Losers" items={losers} limit={3} />
       </div>
 
       {/* ================= NEWS & ALERTS ================= */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <NewsFeed news={news} />
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
         <AlertsFeed alerts={alerts} />
+        <NewsFeed news={news} />
       </div>
     </div>
   )
